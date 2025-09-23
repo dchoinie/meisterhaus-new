@@ -18,7 +18,6 @@ const Rooms = async () => {
               <RoomCard
                 key={room._id}
                 name={room.name}
-                description={room.description}
                 image={room.mainImage}
                 weekdayPrice={room.weekdayPrice}
                 weekendPrice={room.weekendPrice}

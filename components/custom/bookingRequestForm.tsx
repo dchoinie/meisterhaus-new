@@ -20,7 +20,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Room } from "./home/rooms";
+import { Room } from "@/lib/rooms";
 import { useRouter } from "next/navigation";
 import Script from "next/script";
 
@@ -57,10 +57,10 @@ export const bookingFormSchema = z
       message: "Phone number is required",
     }),
     checkInDate: z.date({
-      required_error: "Check-in date is required",
+      message: "Check-in date is required",
     }),
     checkOutDate: z.date({
-      required_error: "Check-out date is required",
+      message: "Check-out date is required",
     }),
     numberOfGuests: z.number().min(1, {
       message: "Number of guests is required",
@@ -495,7 +495,7 @@ const BookingRequestForm = ({
             </Button>
             <Button
               variant="default"
-              className="flex-1 bg-primary-500 text-white font-cinzel-decorative"
+              className="flex-1 bg-primary text-white font-cinzel-decorative"
               type="submit"
               disabled={isSubmitting}
             >

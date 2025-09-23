@@ -2,7 +2,6 @@ import React, { JSX } from "react";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -15,18 +14,6 @@ import { urlFor } from "@/sanity/lib/image";
 
 interface RoomCardProps {
   name: string;
-  description: {
-    _type: string;
-    style: string;
-    _key: string;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    markDefs: any[];
-    children: {
-      _type: string;
-      text: string;
-      marks: string[];
-    }[];
-  }[];
   image: {
     _type: string;
     asset: {
@@ -40,20 +27,17 @@ interface RoomCardProps {
 
 const RoomCard = ({
   name,
-  description,
   image,
   weekdayPrice,
   weekendPrice,
 }: RoomCardProps): JSX.Element => {
   const imageUrl = urlFor(image).url();
-  const descriptionText = Array.isArray(description)
-    ? description[0]?.children[0]?.text || ""
-    : description;
+  const roomSlug = name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
 
   return (
     <Card className="shadow-lg flex flex-col h-full">
       <CardHeader>
-        <CardTitle className="font-cinzel-decorative text-primary-500">
+        <CardTitle className="text-xl font-cinzel-decorative text-gray-900">
           {name}
         </CardTitle>
       </CardHeader>
@@ -61,7 +45,6 @@ const RoomCard = ({
         <AspectRatio ratio={16 / 9}>
           <Image src={imageUrl} alt={name} fill className="object-cover" />
         </AspectRatio>
-        <CardDescription>{descriptionText}</CardDescription>
         <div className="space-y-2">
           <p className="font-cinzel-decorative text-primary-800">
             Weekday: <span className="font-bold">{weekdayPrice}/night</span>
@@ -72,12 +55,19 @@ const RoomCard = ({
           </p>
         </div>
       </CardContent>
-      <CardFooter className="pt-6">
+      <CardFooter className="pt-6 space-y-3 flex flex-col">
         <Button
           asChild
           className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-cinzel-decorative"
         >
           <Link href="/book">Request Booking</Link>
+        </Button>
+        <Button
+          asChild
+          variant="outline"
+          className="w-full font-cinzel-decorative"
+        >
+          <Link href={`/rooms/${roomSlug}`}>View Details</Link>
         </Button>
       </CardFooter>
     </Card>

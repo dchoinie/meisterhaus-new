@@ -46,3 +46,19 @@ export async function getRooms(): Promise<Room[]> {
     return 0;
   });
 }
+
+// Function to get a single room by name
+export async function getRoomByName(roomName: string): Promise<Room | null> {
+  const room = await client.fetch(`
+    *[_type == "room" && name == $roomName][0] {
+      _id,
+      name,
+      description,
+      mainImage,
+      weekdayPrice,
+      weekendPrice,
+    }
+  `, { roomName });
+
+  return room || null;
+}

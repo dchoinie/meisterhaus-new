@@ -1,8 +1,11 @@
 import Container from "../../components/custom/container";
 import SEO from "../../components/custom/seo";
 import Image from "next/image";
+import { getRooms, Room } from "@/lib/rooms";
+import { urlFor } from "@/sanity/lib/image";
 
-export default function RoomsPage() {
+export default async function RoomsPage() {
+  const rooms = await getRooms();
   return (
     <>
       <SEO
@@ -15,148 +18,57 @@ export default function RoomsPage() {
             Our Rooms
           </h1>
 
-          {/* The Pheasant Room */}
-          <section className="flex flex-col gap-8">
-            <h2 className="text-3xl md:text-4xl font-cinzel-decorative text-primary-800">
-              The Pheasant Room
-            </h2>
-            <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start">
-              <div className="relative w-full md:w-1/2 aspect-[4/3] rounded-lg overflow-hidden">
-                <Image
-                  src="/pheasant_1.png"
-                  alt="The Pheasant Room"
-                  fill
-                  className="object-cover"
-                  priority
-                  quality={100}
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-              </div>
-              <div className="md:w-1/2 space-y-4 text-lg text-primary-800">
-                <p>
-                  Our premier Pheasant Room offers a luxurious retreat with a
-                  premium Sleep Number bed and high-quality linens. This
-                  spacious master suite features large windows overlooking the
-                  lake, providing stunning views and abundant natural light. The
-                  room&apos;s decor pays homage to Minnesota&apos;s rich hunting
-                  tradition with tasteful pheasant-themed accents.
-                </p>
-                <ul className="list-disc list-inside space-y-2">
-                  <li>Jack & Jill style full bathroom</li>
-                  <li>High-speed WiFi</li>
-                  <li>Access to shared living area</li>
-                  <li>Premium Sleep Number mattress and bedding</li>
-                </ul>
-              </div>
-            </div>
-          </section>
+          {rooms.map((room: Room, index: number) => {
+            const imageUrl = urlFor(room.mainImage).url();
+            const descriptionText = Array.isArray(room.description)
+              ? room.description[0]?.children[0]?.text || ""
+              : room.description;
 
-          {/* Oma's Room */}
-          <section className="flex flex-col gap-8">
-            <h2 className="text-3xl md:text-4xl font-cinzel-decorative text-primary-800">
-              Oma&apos;s Room
-            </h2>
-            <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start">
-              <div className="relative w-full md:w-1/2 aspect-[4/3] rounded-lg overflow-hidden">
-                <Image
-                  src="/oma_1.jpg"
-                  alt="Oma's Room"
-                  fill
-                  className="object-cover"
-                  quality={100}
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-              </div>
-              <div className="md:w-1/2 space-y-4 text-lg text-primary-800">
-                <p>
-                  Named in honor of family tradition, Oma&apos;s Room provides
-                  warm and comfortable accommodations with a queen-size bed and
-                  carefully selected furnishings. This charming room combines
-                  classic comfort with modern amenities, creating a cozy
-                  atmosphere that makes you feel right at home. The room
-                  features traditional decor with thoughtful touches that
-                  reflect family heritage.
-                </p>
-                <ul className="list-disc list-inside space-y-2">
-                  <li>Queen-size bed with plush bedding</li>
-                  <li>Jack & Jill style full bathroom</li>
-                  <li>Reading nook with comfortable chair</li>
-                  <li>Vintage-inspired decor</li>
-                </ul>
-              </div>
-            </div>
-          </section>
-
-          {/* The Beach Room */}
-          <section className="flex flex-col gap-8">
-            <h2 className="text-3xl md:text-4xl font-cinzel-decorative text-primary-800">
-              The Beach Room
-            </h2>
-            <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start">
-              <div className="relative w-full md:w-1/2 aspect-[4/3] rounded-lg overflow-hidden">
-                <Image
-                  src="/beach_1.jpg"
-                  alt="The Beach Room"
-                  fill
-                  className="object-cover"
-                  quality={100}
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-              </div>
-              <div className="md:w-1/2 space-y-4 text-lg text-primary-800">
-                <p>
-                  The Beach Room captures the essence of lakeside living with
-                  its coastal-inspired decor and comfortable accommodations.
-                  This delightful space features two twin beds, making it
-                  perfect for children or additional guests. The room&apos;s
-                  beach theme creates a fun and relaxing atmosphere,
-                  complemented by natural light from the skylight window.
-                </p>
-                <ul className="list-disc list-inside space-y-2">
-                  <li>Quality mattress & bedding</li>
-                  <li>Private full bathroom</li>
-                  <li>Beach-themed decor and artwork</li>
-                </ul>
-              </div>
-            </div>
-          </section>
-
-          {/* Entire Basement */}
-          <section className="flex flex-col gap-8">
-            <h2 className="text-3xl md:text-4xl font-cinzel-decorative text-primary-800">
-              Entire Basement
-            </h2>
-            <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start">
-              <div className="relative w-full md:w-1/2 aspect-[4/3] rounded-lg overflow-hidden">
-                <Image
-                  src="/house_4.png"
-                  alt="Entire Basement"
-                  fill
-                  className="object-cover"
-                  quality={100}
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-              </div>
-              <div className="md:w-1/2 space-y-4 text-lg text-primary-800">
-                <p>
-                  Experience the ultimate in lakeside living by booking our
-                  entire basement level. This spacious accommodation includes
-                  all three rooms - The Pheasant Room, Oma&apos;s Room, and The
-                  Beach Room - perfect for larger families or groups. Enjoy
-                  exclusive access to shared spaces and amenities while
-                  maintaining privacy and comfort for your entire party.
-                </p>
-                <ul className="list-disc list-inside space-y-2">
-                  <li>Three private bedrooms (sleeps up to 6)</li>
-                  <li>Two full bathrooms</li>
-                  <li>Shared living area with lake views</li>
-                  <li>High-speed WiFi throughout</li>
-                  <li>Private entrance</li>
-                  <li>Access to all basement amenities</li>
-                </ul>
-              </div>
-            </div>
-          </section>
+            return (
+              <section key={room._id} className="flex flex-col gap-8">
+                <h2 className="text-3xl md:text-4xl font-cinzel-decorative text-primary-800">
+                  {room.name}
+                </h2>
+                <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start">
+                  <div className="relative w-full md:w-1/2 aspect-[4/3] rounded-lg overflow-hidden">
+                    <Image
+                      src={imageUrl}
+                      alt={room.name}
+                      fill
+                      className="object-cover"
+                      priority={index === 0}
+                      quality={100}
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                  </div>
+                  <div className="md:w-1/2 space-y-4 text-lg text-primary-800">
+                    <p>{descriptionText}</p>
+                    
+                    {/* Pricing Information */}
+                    <div className="bg-primary-50 p-4 rounded-lg">
+                      <h3 className="text-xl font-cinzel-decorative text-primary-800 mb-3">
+                        Pricing
+                      </h3>
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-center">
+                          <span className="text-primary-700">Weekday Rate:</span>
+                          <span className="font-bold text-primary-800">
+                            {room.weekdayPrice}/night
+                          </span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-primary-700">Weekend/Holiday Rate:</span>
+                          <span className="font-bold text-primary-800">
+                            {room.weekendPrice}/night
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            );
+          })}
         </div>
       </Container>
     </>

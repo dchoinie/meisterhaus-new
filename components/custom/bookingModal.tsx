@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Room } from "./home/rooms";
+import { Room } from "@/lib/rooms";
 import BookingRequestForm, { bookingFormSchema } from "./bookingRequestForm";
 import { z } from "zod";
 
