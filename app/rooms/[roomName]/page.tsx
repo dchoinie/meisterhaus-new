@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { notFound } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
 import Container from "../../../components/custom/container";
 import SEO from "../../../components/custom/seo";
 import Image from "next/image";
@@ -12,12 +12,6 @@ import Link from "next/link";
 import { ArrowLeft, Calendar, DollarSign } from "lucide-react";
 import BookingModal from "../../../components/custom/bookingModal";
 
-interface RoomPageProps {
-  params: {
-    roomName: string;
-  };
-}
-
 // Function to convert slug back to room name
 function slugToRoomName(slug: string): string {
   return slug
@@ -26,7 +20,8 @@ function slugToRoomName(slug: string): string {
     .join(' ');
 }
 
-export default function RoomPage({ params }: RoomPageProps) {
+export default function RoomPage() {
+  const params = useParams<{ roomName: string }>();
   const [room, setRoom] = useState<Room | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
@@ -34,7 +29,7 @@ export default function RoomPage({ params }: RoomPageProps) {
   React.useEffect(() => {
     const fetchRoom = async () => {
       try {
-        const { roomName: roomSlug } = await params;
+        const roomSlug = params.roomName;
         const roomName = slugToRoomName(roomSlug);
         const fetchedRoom: Room | null = await getRoomByName(roomName);
         
@@ -52,7 +47,7 @@ export default function RoomPage({ params }: RoomPageProps) {
     };
 
     fetchRoom();
-  }, [params]);
+  }, [params.roomName]);
 
   if (isLoading) {
     return (

@@ -1,4 +1,5 @@
 import { type SchemaTypeDefinition } from 'sanity'
+import features from './features'
 
 const room: SchemaTypeDefinition = {
   name: 'room',
@@ -95,5 +96,5 @@ const room: SchemaTypeDefinition = {
 }
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [room],
+  types: [room, features],
 }
