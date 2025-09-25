@@ -11,6 +11,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { urlFor } from "@/sanity/lib/image";
+import { slugifyRoomName } from "@/lib/slug";
 
 interface RoomCardProps {
   name: string;
@@ -32,7 +33,7 @@ const RoomCard = ({
   weekendPrice,
 }: RoomCardProps): JSX.Element => {
   const imageUrl = urlFor(image).url();
-  const roomSlug = name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+  const roomSlug = slugifyRoomName(name);
 
   return (
     <Card className="shadow-lg flex flex-col h-full">

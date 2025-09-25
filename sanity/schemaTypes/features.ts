@@ -6,13 +6,6 @@ const features: SchemaTypeDefinition = {
   type: 'document',
   fields: [
     {
-      name: 'title',
-      title: 'Title',
-      type: 'string',
-      description: 'Title for the features section (e.g., "Property Features")',
-      validation: (Rule) => Rule.required(),
-    },
-    {
       name: 'featuresList',
       title: 'Features List',
       type: 'array',
@@ -48,14 +41,13 @@ const features: SchemaTypeDefinition = {
   ],
   preview: {
     select: {
-      title: 'title',
       subtitle: 'featuresList',
     },
     prepare(selection) {
-      const { title, subtitle } = selection
+      const { subtitle } = selection
       const featureCount = subtitle ? subtitle.length : 0
       return {
-        title: title || 'Features',
+        title: 'Features',
         subtitle: `${featureCount} feature${featureCount !== 1 ? 's' : ''}`,
       }
     },

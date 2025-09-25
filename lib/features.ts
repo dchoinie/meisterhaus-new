@@ -7,7 +7,6 @@ export interface Feature {
 
 export interface Features {
   _id: string;
-  title: string;
   featuresList: Feature[];
 }
 
@@ -16,7 +15,6 @@ export async function getFeatures(): Promise<Features | null> {
   const features = await client.fetch(`
     *[_type == "features"][0] {
       _id,
-      title,
       featuresList
     }
   `);

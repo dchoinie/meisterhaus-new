@@ -5,7 +5,8 @@ import { notFound, useParams } from "next/navigation";
 import Container from "../../../components/custom/container";
 import SEO from "../../../components/custom/seo";
 import Image from "next/image";
-import { getRoomByName, Room } from "@/lib/rooms";
+import { getRooms, Room } from "@/lib/rooms";
+import { slugifyRoomName } from "@/lib/slug";
 import { urlFor } from "@/sanity/lib/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -29,9 +30,14 @@ export default function RoomPage() {
   React.useEffect(() => {
     const fetchRoom = async () => {
       try {
+        // Debug: log params and how slug is transformed
+        console.log('Room page params:', params);
         const roomSlug = params.roomName;
-        const roomName = slugToRoomName(roomSlug);
-        const fetchedRoom: Room | null = await getRoomByName(roomName);
+        console.log('Room slug from params:', roomSlug);
+        // Find by slug to avoid mismatches
+        const rooms = await getRooms();
+        const fetchedRoom: Room | null =
+          rooms.find((r) => slugifyRoomName(r.name) === roomSlug) ?? null;
         
         if (!fetchedRoom) {
           notFound();
@@ -154,7 +160,7 @@ export default function RoomPage() {
               <div className="text-center">
                 <Button
                   size="lg"
-                  className="bg-primary text-primary-foreground hover:bg-primary/90 font-cinzel-decorative text-lg px-8 py-3"
+                  className="bg-primary cursor-pointer text-primary-foreground hover:bg-primary/90 font-cinzel-decorative text-lg px-8 py-3"
                   onClick={() => setIsBookingModalOpen(true)}
                 >
                   <Calendar className="w-5 h-5 mr-2" />

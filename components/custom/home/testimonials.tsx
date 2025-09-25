@@ -108,9 +108,7 @@ const Testimonials = (): JSX.Element => {
           {testimonialsArray.map((t: Testimonial, i: number) => (
             <Card
               key={`${t.name}-${i}`}
-              className={`p-6 bg-muted text-[12px] break-inside-avoid-column inline-block w-full ${
-                i === 0 ? "mt-6" : ""
-              }`}
+              className="p-6 bg-muted text-[12px] break-inside-avoid-column inline-block w-full"
             >
               <CardContent className="text-foreground">
                 {t.testimonial}

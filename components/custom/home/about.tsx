@@ -21,74 +21,21 @@ const About = async (): Promise<JSX.Element> => {
               blessings, our home and our love for the outdoors.
             </p>
             <div className="grid grid-cols-3 gap-x-2 gap-y-1">
-              {featuresData?.featuresList?.map((feature: Feature, index: number) => (
-                <div
-                  key={`${feature.text}-${index}`}
-                  className="flex gap-2 font-cinzel-decorative"
-                >
+              {featuresData?.featuresList?.length ? (
+                featuresData.featuresList.map((feature: Feature, index: number) => (
+                  <div
+                    key={`${feature.text}-${index}`}
+                    className="flex gap-2 font-cinzel-decorative"
+                  >
+                    <div className="w-2 h-2 rounded-full bg-accent self-center" />
+                    <p className="text-muted-foreground m-0">{feature.text}</p>
+                  </div>
+                ))
+              ) : (
+                <div className="flex gap-2 font-cinzel-decorative col-span-3">
                   <div className="w-2 h-2 rounded-full bg-accent self-center" />
-                  <p className="text-muted-foreground m-0">{feature.text}</p>
+                  <p className="text-muted-foreground m-0">Features coming soon</p>
                 </div>
-              )) || (
-                // Fallback to hardcoded features if Sanity data is not available
-                <>
-                  <div className="flex gap-2 font-cinzel-decorative">
-                    <div className="w-2 h-2 rounded-full bg-accent self-center" />
-                    <p className="text-muted-foreground m-0">3 guest rooms</p>
-                  </div>
-                  <div className="flex gap-2 font-cinzel-decorative">
-                    <div className="w-2 h-2 rounded-full bg-accent self-center" />
-                    <p className="text-muted-foreground m-0">2 full bathrooms</p>
-                  </div>
-                  <div className="flex gap-2 font-cinzel-decorative">
-                    <div className="w-2 h-2 rounded-full bg-accent self-center" />
-                    <p className="text-muted-foreground m-0">craft area</p>
-                  </div>
-                  <div className="flex gap-2 font-cinzel-decorative">
-                    <div className="w-2 h-2 rounded-full bg-accent self-center" />
-                    <p className="text-muted-foreground m-0">workout area</p>
-                  </div>
-                  <div className="flex gap-2 font-cinzel-decorative">
-                    <div className="w-2 h-2 rounded-full bg-accent self-center" />
-                    <p className="text-muted-foreground m-0">pool table</p>
-                  </div>
-                  <div className="flex gap-2 font-cinzel-decorative">
-                    <div className="w-2 h-2 rounded-full bg-accent self-center" />
-                    <p className="text-muted-foreground m-0">large screen TV</p>
-                  </div>
-                  <div className="flex gap-2 font-cinzel-decorative">
-                    <div className="w-2 h-2 rounded-full bg-accent self-center" />
-                    <p className="text-muted-foreground m-0">refrigerator</p>
-                  </div>
-                  <div className="flex gap-2 font-cinzel-decorative">
-                    <div className="w-2 h-2 rounded-full bg-accent self-center" />
-                    <p className="text-muted-foreground m-0">pizza oven</p>
-                  </div>
-                  <div className="flex gap-2 font-cinzel-decorative">
-                    <div className="w-2 h-2 rounded-full bg-accent self-center" />
-                    <p className="text-muted-foreground m-0">beverage station</p>
-                  </div>
-                  <div className="flex gap-2 font-cinzel-decorative">
-                    <div className="w-2 h-2 rounded-full bg-accent self-center" />
-                    <p className="text-muted-foreground m-0">walkout patio</p>
-                  </div>
-                  <div className="flex gap-2 font-cinzel-decorative">
-                    <div className="w-2 h-2 rounded-full bg-accent self-center" />
-                    <p className="text-muted-foreground m-0">hot tub</p>
-                  </div>
-                  <div className="flex gap-2 font-cinzel-decorative">
-                    <div className="w-2 h-2 rounded-full bg-accent self-center" />
-                    <p className="text-muted-foreground m-0">fire pit</p>
-                  </div>
-                  <div className="flex gap-2 font-cinzel-decorative">
-                    <div className="w-2 h-2 rounded-full bg-accent self-center" />
-                    <p className="text-muted-foreground m-0">pond</p>
-                  </div>
-                  <div className="flex gap-2 font-cinzel-decorative">
-                    <div className="w-2 h-2 rounded-full bg-accent self-center" />
-                    <p className="text-muted-foreground m-0">bird watching</p>
-                  </div>
-                </>
               )}
             </div>
           </div>
