@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowLeft, Calendar, DollarSign } from "lucide-react";
 import BookingModal from "../../../components/custom/bookingModal";
+import { getPlainText } from "@/lib/richText";
 
 // Function to convert slug back to room name
 function slugToRoomName(slug: string): string {
@@ -73,9 +74,7 @@ export default function RoomPage() {
   }
 
   const imageUrl = urlFor(room.mainImage).url();
-  const descriptionText = Array.isArray(room.description)
-    ? room.description[0]?.children[0]?.text || ""
-    : room.description;
+  const descriptionText = getPlainText(room.description);
 
   return (
     <>
@@ -144,13 +143,13 @@ export default function RoomPage() {
                   <div className="flex justify-between items-center">
                     <span className="text-primary-700">Weekday Rate:</span>
                     <span className="font-bold text-primary-800 text-lg">
-                      {room.weekdayPrice}/night
+                      {room.weekdayPrice}
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-primary-700">Weekend/Holiday Rate:</span>
                     <span className="font-bold text-primary-800 text-lg">
-                      {room.weekendPrice}/night
+                      {room.weekendPrice}
                     </span>
                   </div>
                 </div>

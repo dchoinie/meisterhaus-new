@@ -39,12 +39,7 @@ export async function getRooms(): Promise<Room[]> {
     } | order(name asc)
   `);
 
-  // Sort "Full Basement" to the end
-  return rooms.sort((a: Room, b: Room) => {
-    if (a.name === "Full Basement") return 1;
-    if (b.name === "Full Basement") return -1;
-    return 0;
-  });
+  return rooms;
 }
 
 // Function to get a single room by name

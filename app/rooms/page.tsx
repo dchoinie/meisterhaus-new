@@ -3,6 +3,7 @@ import SEO from "../../components/custom/seo";
 import Image from "next/image";
 import { getRooms, Room } from "@/lib/rooms";
 import { urlFor } from "@/sanity/lib/image";
+import { getPlainText } from "@/lib/richText";
 
 export default async function RoomsPage() {
   const rooms = await getRooms();
@@ -20,9 +21,7 @@ export default async function RoomsPage() {
 
           {rooms.map((room: Room, index: number) => {
             const imageUrl = urlFor(room.mainImage).url();
-            const descriptionText = Array.isArray(room.description)
-              ? room.description[0]?.children[0]?.text || ""
-              : room.description;
+            const descriptionText = getPlainText(room.description);
 
             return (
               <section key={room._id} className="flex flex-col gap-8">
@@ -53,13 +52,13 @@ export default async function RoomsPage() {
                         <div className="flex justify-between items-center">
                           <span className="text-primary-700">Weekday Rate:</span>
                           <span className="font-bold text-primary-800">
-                            {room.weekdayPrice}/night
+                            {room.weekdayPrice}
                           </span>
                         </div>
                         <div className="flex justify-between items-center">
                           <span className="text-primary-700">Weekend/Holiday Rate:</span>
                           <span className="font-bold text-primary-800">
-                            {room.weekendPrice}/night
+                            {room.weekendPrice}
                           </span>
                         </div>
                       </div>
